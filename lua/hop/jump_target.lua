@@ -403,4 +403,47 @@ function M.regex_by_anywhere()
   return M.regex_by_searching('\\v(<.|^$)|(.>|^$)|(\\l)\\zs(\\u)|(_\\zs.)|(#\\zs.)')
 end
 
+-- Create a grid of jump targets. lines_jump and columns_jump define
+-- how big the spacing between the single jump targets is.
+function M.grid_jump_targets(lines_jump, columns_jump)
+  return function(opts)
+    local all_ctxs = window.get_window_context(opts.multi_windows)
+    local jump_targets = {}
+    local indirect_jump_targets = {}
+
+    for _, bctx in ipairs(all_ctxs) do
+      -- Iterate all windows of a same buffer
+      for _, wctx in ipairs(bctx.contexts) do
+        local win_bias = math.abs(vim.api.nvim_get_current_win() - wctx.hwin) * 1000
+        local lines = window.get_lines_context(bctx.hbuf, wctx)
+
+        for line_index = 1, #lines - 1, lines_jump do
+          local line = lines[line_index]
+
+          -- TODO if empty lines are in the distance of line_jump, then it can be possible
+          -- that no jump_targets are shown.
+          if #line.line > 0 then
+            for column = 1, #line.line, columns_jump do
+              local jump_target = {
+                line = line.line_nr,
+                column = column,
+                buffer = bctx.hbuf,
+                window = wctx.hwin,
+              }
+
+              jump_targets[#jump_targets + 1] = jump_target
+              indirect_jump_targets[#indirect_jump_targets + 1] = {
+                  index = #jump_targets,
+                  score = M.manh_dist(wctx.cursor_pos, { jump_target.line, jump_target.column }) + win_bias
+              }
+            end
+          end
+        end
+      end
+    end
+
+    return { jump_targets = jump_targets, indirect_jump_targets = indirect_jump_targets }
+  end
+end
+
 return M

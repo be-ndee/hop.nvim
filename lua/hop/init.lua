@@ -473,4 +473,24 @@ function M.setup(opts)
   end
 end
 
+function M.hint_grid(opts)
+  opts = override_opts(opts)
+
+  local lines_jump = 5
+  local columns_jump = 5
+
+  if opts.lines_jump then
+    lines_jump = opts.lines_jump
+  end
+
+  if opts.columns_jump then
+    columns_jump = opts.columns_jump
+  end
+
+  M.hint_with(
+    jump_target.grid_jump_targets(lines_jump, columns_jump),
+    opts
+  )
+end
+
 return M
