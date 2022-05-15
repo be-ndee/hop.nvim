@@ -24,6 +24,7 @@ target in your document reachable in a few keystrokes.
   * [1-char mode (`:HopChar1`)](#1-char-mode-hopchar1)
   * [2-char mode (`:HopChar2`)](#2-char-mode-hopchar2)
   * [Pattern mode (`:HopPattern`)](#pattern-mode-hoppattern)
+  * [Grid mode (`:HopGrid`)](#grid-mode-hopgrid)
   * [Visual extend](#visual-extend)
   * [Jump on sole occurrence](#jump-on-sole-occurrence)
   * [Use as operator motion](#use-as-operator-motion)
@@ -117,6 +118,10 @@ jump to any.
 
 ![](https://phaazon.net/media/uploads/hop_pattern_mode.gif)
 
+## Grid mode (`:HopGrid`)
+
+This command highlights jump targets in a grid like manner.
+
 ## Visual extend
 
 If you call any Hop commands / Lua functions from one of the visual modes, the visual selection will be extended.
@@ -207,6 +212,7 @@ A bunch of vim commands are available to get your fingers wrapped around **Hop**
 - `:HopChar2`: type a bigram (two keys) and hop to any occurrence of that bigram in the document.
 - `:HopLine`: jump to any visible line in your buffer.
 - `:HopLineStart`: jump to any visible first non-whitespace character of each line in your buffer.
+- `:HopGrid`: hop around in a grid like manner.
 
 Most of these commands have variant to jump before / after the cursor, and on the current line. For instance,
 `:HopChar1CurrentLineAC` is a form of `f` (Vim native motion) using Hop.
