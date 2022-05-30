@@ -62,4 +62,10 @@ command! HopAnywhereCurrentLineBC lua require'hop'.hint_anywhere({ direction = r
 command! HopAnywhereCurrentLineAC lua require'hop'.hint_anywhere({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })
 command! HopAnywhereMW            lua require'hop'.hint_anywhere({ multi_windows = true })
 
-command! HopGrid lua require'hop'.hint_grid()
+command! HopGrid              lua require'hop'.hint_grid()
+" command! HopGridBC            lua require'hop'.hint_grid({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })
+" command! HopGridAC            lua require'hop'.hint_grid({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })
+" command! HopGridCurrentLine   lua require'hop'.hint_grid({ current_line_only = true })
+" command! HopGridCurrentLineBC lua require'hop'.hint_grid({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })
+" command! HopGridCurrentLineAC lua require'hop'.hint_grid({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })
+command! HopGridMW            lua require'hop'.hint_grid({ multi_windows = true })
